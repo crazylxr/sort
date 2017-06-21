@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>快速排序</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var array = [3, 5, 1, 6, 4, 7, 2];
+      quick(array, 0, array.length-1);
+      console.log(array);
+
+     function quick(array, left, right){
+        var index;
+
+        if(array.length > 1){
+          index = partition(array, left , right);
+
+          if(left < index - 1){
+            quick(array, left , index - 1);
+          }
+
+          if(index < right){
+            quick(array, index + 1, right);
+          }
+        }
+      }
+
+      function partition2(array,left,right){
+        debugger
+        var pivot = array[left]; //第一个作为主元
+        var leftPointer = left;
+        var rightPointer = right;
+
+        while(leftPointer < rightPointer){
+          while(leftPointer < rightPointer && array[rightPointer] > pivot) {
+            rightPointer--;
+          }
+
+          array[leftPointer] = array[rightPointer];
+
+          while(leftPointer < rightPointer && array[leftPointer] < pivot){
+            leftPointer++;
+          }
+
+          array[rightPointer] = array[leftPointer];
+        }
+
+        array[rightPointer] = pivot;
+
+        return leftPointer;
+      }
+
+      function partition(array,left,right){
+        var pivot = array[Math.floor((left + right) / 2)];//找主元
+
+        var leftPointer = left;
+        var rightPointer = right;
+
+        while(leftPointer < rightPointer){
+          while(array[leftPointer] < pivot && leftPointer < rightPointer){
+            leftPointer++;
+          }
+
+          while(array[rightPointer] > pivot && leftPointer < rightPointer){
+            rightPointer--;
+          }
+
+          if(leftPointer <= rightPointer){
+            swap(array, leftPointer, rightPointer);
+          }
+        }
+
+        return leftPointer;
+      }
+
+       function swap(array,index1,index2){
+        var temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
+      }
+    </script>
+  </body>
+</html>
